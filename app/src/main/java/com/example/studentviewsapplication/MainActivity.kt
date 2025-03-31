@@ -27,9 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         val studentList = mutableListOf<StudentModel>()
 
+        val adapter = StudentAdapter(studentList)
+        listView.adapter = adapter
+
         for(i in 1..27) {
             studentList.add(StudentModel("Student $i", "$i"))
         }
+
+        adapter.notifyDataSetChanged()
 
         inputButton.setOnClickListener {
             val name = inputName.text.toString()

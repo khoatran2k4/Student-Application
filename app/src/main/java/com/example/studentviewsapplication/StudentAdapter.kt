@@ -16,11 +16,20 @@ class StudentAdapter(val studentList: MutableList<StudentModel>) : BaseAdapter()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val view = convertView ?: LayoutInflater.from(parent?.context)
-            .inflate(R.layout.student_list_views, parent, false)
+        val view: View
+        val viewHolder: ViewHolder
 
-        val viewHolder = (convertView?.tag as ViewHolder) ?: ViewHolder(view).also {
-            view.tag = it
+        if (convertView == null) {
+            view = LayoutInflater.from(parent?.context).inflate(
+                R.layout.student_list_views,
+                parent,
+                false
+            )
+            viewHolder = ViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as ViewHolder
         }
 
         val student = studentList[position]
